@@ -102,12 +102,15 @@ else:
         </div>
     """, unsafe_allow_html=True)
 
-    user_input = st.number_input("Enter your guess:", min_value=1, max_value=50, step=1)
+    user_input = st.number_input("Enter your guess:", min_value=1, max_value=50, step=1, value=None, placeholder="Type a number...")
 
-    col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
-    with col1:
-        if st.button("✅ Submit Guess"):
+with col1:
+    if st.button("✅ Submit Guess"):
+        if user_input is None:
+            st.warning("Please enter a number first!")
+        else:
             st.session_state.attempts += 1
             if user_input < st.session_state.target:
                 st.warning("Too LOW ⬇️ Think bigger!")
